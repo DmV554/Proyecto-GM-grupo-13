@@ -1,23 +1,17 @@
 package com.mygdx.game;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBall {
-	    private int x;
-	    private int y;
+public class PingBall extends GameObject {
 	    private int size;
 	    private int xSpeed;
 	    private int ySpeed;
-	    private Color color = Color.WHITE;
 	    private boolean estaQuieto;
 	    
-	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto) {
-	        this.x = x;
-	        this.y = y;
+	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto, Color color) {
+			super(x,y, color);
 	        this.size = size;
 	        this.xSpeed = xSpeed;
 	        this.ySpeed = ySpeed;
@@ -30,12 +24,7 @@ public class PingBall {
 	    public void setEstaQuieto(boolean bb) {
 	    	estaQuieto=bb;
 	    }
-	    public void setXY(int x, int y) {
-	    	this.x = x;
-	        this.y = y;
-	    }
-	    public int getY() {return y;}
-	    
+
 	    public void draw(ShapeRenderer shape){
 	        shape.setColor(color);
 	        shape.circle(x, y, size);
@@ -63,7 +52,6 @@ public class PingBall {
 	        }
 	    }
 	    private boolean collidesWith(Paddle pp) {
-
 	    	boolean intersectaX = (pp.getX() + pp.getWidth() >= x-size) && (pp.getX() <= x+size);
 	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-size) && (pp.getY() <= y+size);		
 	    	return intersectaX && intersectaY;
@@ -76,9 +64,8 @@ public class PingBall {
 	        }
 	    }
 	    private boolean collidesWith(Block bb) {
-
-	    	boolean intersectaX = (bb.x + bb.width >= x-size) && (bb.x <= x+size);
-	        boolean intersectaY = (bb.y + bb.height >= y-size) && (bb.y <= y+size);		
+	    	boolean intersectaX = (bb.x + bb.ancho >= x-size) && (bb.x <= x+size);
+	        boolean intersectaY = (bb.y + bb.alto >= y-size) && (bb.y <= y+size);
 	    	return intersectaX && intersectaY;
 	    }
 	    

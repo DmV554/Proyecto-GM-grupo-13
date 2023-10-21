@@ -1,11 +1,13 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,6 +26,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private int vidas;
 	private int puntaje;
 	private int nivel;
+	Color pingBallColor = new Color();
     
 		@Override
 		public void create () {	
@@ -36,7 +39,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		    crearBloques(2+nivel);
 			
 		    shape = new ShapeRenderer();
-		    ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true);
+		    ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true, pingBallColor.WHITE);
 		    pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10);
 		    vidas = 3;
 		    puntaje = 0;    
@@ -46,13 +49,16 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			int blockWidth = 70;
 		    int blockHeight = 26;
 		    int y = Gdx.graphics.getHeight();
+
 		    for (int cont = 0; cont<filas; cont++ ) {
 		    	y -= blockHeight+10;
 		    	for (int x = 5; x < Gdx.graphics.getWidth(); x += blockWidth + 10) {
-		            blocks.add(new Block(x, y, blockWidth, blockHeight));
+					Random r = new Random(x+y);
+		            blocks.add(new Block(x, y, blockWidth, blockHeight, new Color(0.1f+r.nextFloat(1), r.nextFloat(1), r.nextFloat(1), 10)));
 		        }
 		    }
 		}
+
 		public void dibujaTextos() {
 			//actualizar matrices de la cámara
 			camera.update();
@@ -78,8 +84,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        //verificar si se fue la bola x abajo
 	        if (ball.getY()<0) {
 	        	vidas--;
-	        	//nivel = 1;
-	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
+	        	//nivel = 1
+	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true, pingBallColor.WHITE);
 	        }
 	        // verificar game over
 	        if (vidas<=0) {
@@ -92,7 +98,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        if (blocks.size()==0) {
 	        	nivel++;
 	        	crearBloques(2+nivel);
-	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
+	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true,pingBallColor.WHITE);
 	        }    	
 	        //dibujar bloques
 	        for (Block b : blocks) {        	
