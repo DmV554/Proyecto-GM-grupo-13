@@ -23,9 +23,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private PingBall ball;
 	private Paddle pad;
 	private ArrayList<Block> blocks = new ArrayList<>();
-	private int vidas;
-	private int puntaje;
-	private int nivel;
+
 	Color pingBallColor = new Color();
 	GameManager manager;
 

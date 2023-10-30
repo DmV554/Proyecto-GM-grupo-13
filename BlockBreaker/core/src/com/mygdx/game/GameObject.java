@@ -36,7 +36,7 @@ public abstract class GameObject {
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
 
-    public void setXY(int x, int y) {
+    public void setXY(float x, float y) {
         this.x = x;
         this.y = y;
     }

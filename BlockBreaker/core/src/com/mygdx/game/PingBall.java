@@ -3,20 +3,25 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import java.util.*;
 
-public class PingBall extends GameObject {
+public class PingBall extends GameObject{
 	    private int size;
 	    private int xSpeed;
 	    private int ySpeed;
 	    private boolean estaQuieto;
 	    
-	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto, Color color) {
+	    public PingBall(float x, float y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto, Color color) {
 			super(x,y, color);
 	        this.size = size;
 	        this.xSpeed = xSpeed;
 	        this.ySpeed = ySpeed;
 	        estaQuieto = iniciaQuieto;
 	    }
+
+		public int getSize() {
+			return size;
+		}
 	    
 	    public boolean estaQuieto() {
 	    	return estaQuieto;
