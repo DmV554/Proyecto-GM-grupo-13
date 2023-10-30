@@ -18,6 +18,7 @@ public class Block extends GameObject {
         shape.rect(x, y, ancho, alto);
     }
 
+    @Override
     public void update() {
     };
 }

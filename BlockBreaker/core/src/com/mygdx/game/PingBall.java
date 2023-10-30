@@ -29,7 +29,8 @@ public class PingBall extends GameObject {
 	        shape.setColor(color);
 	        shape.circle(x, y, size);
 	    }
-	    
+
+		@Override
 	    public void update() {
 	    	if (estaQuieto) return;
 	        x += xSpeed;
@@ -41,32 +42,21 @@ public class PingBall extends GameObject {
 	            ySpeed = -ySpeed;
 	        }
 	    }
-	    
-	    public void checkCollision(Paddle paddle) {
-	        if(collidesWith(paddle)){
-	            color = Color.GREEN;
-	            ySpeed = -ySpeed;
-	        }
-	        else{
-	            color = Color.WHITE;
-	        }
-	    }
-	    private boolean collidesWith(Paddle pp) {
-	    	boolean intersectaX = (pp.getX() + pp.getWidth() >= x-size) && (pp.getX() <= x+size);
-	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-size) && (pp.getY() <= y+size);		
-	    	return intersectaX && intersectaY;
-	    }
-	    
-	    public void checkCollision(Block block) {
-	        if(collidesWith(block)){
-	            ySpeed = - ySpeed;
-	            block.destroyed = true;
-	        }
-	    }
-	    private boolean collidesWith(Block bb) {
-	    	boolean intersectaX = (bb.x + bb.ancho >= x-size) && (bb.x <= x+size);
-	        boolean intersectaY = (bb.y + bb.alto >= y-size) && (bb.y <= y+size);
-	    	return intersectaX && intersectaY;
-	    }
-	    
-	}
+
+		public void checkCollisionPad(Paddle pad) {
+			if(pad.collidesWith(this)) {
+				color = Color.GREEN;
+				ySpeed = -ySpeed;
+			}
+			else{
+				color = Color.WHITE;
+			}
+		}
+
+		public void checkCollisionBlock(Block b) {
+				if (b.collidesWith(this)) {
+					b.setDestroyed(true);
+					ySpeed = - ySpeed;
+				}
+		}
+}
