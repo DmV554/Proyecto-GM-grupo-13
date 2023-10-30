@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
+
 public class BlockBreakerGame extends ApplicationAdapter {
     private OrthographicCamera camera;
 	private SpriteBatch batch;	   
@@ -22,9 +23,9 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private ShapeRenderer shape;
 	private PingBall ball;
 	private Paddle pad;
-	private ArrayList<Block> blocks = new ArrayList<>();
+	private final ArrayList<Block> blocks = new ArrayList<>();
 
-	Color pingBallColor = new Color();
+
 	GameManager manager;
 
 	@Override
@@ -38,7 +39,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		manager = new GameManager();
 			
 		shape = new ShapeRenderer();
-		ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true, pingBallColor.WHITE);
+		ball = new PingBall((float) Gdx.graphics.getWidth() /2-10, 41, 10, 5, 7, true, Color.WHITE);
 		pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10, Color.BLUE);
 		crearBloques();
 	}
@@ -87,7 +88,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		//verificar si se fue la bola x abajo
 		if (ball.getY()<0) {
 			manager.decrementarVida();
-			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true, pingBallColor.WHITE);
+			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true, Color.WHITE);
 		}
 
 		if(manager.verificarGameOver()) {
@@ -97,7 +98,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		if(manager.verificarTerminoNivel(blocks)) {
 			manager.aumentarNivel();
 			crearBloques();
-			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true,pingBallColor.WHITE);
+			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true, Color.WHITE);
 		}
 
 		dibujarTodosLosBloques();
@@ -127,9 +128,5 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			ball.checkCollisionBlock(b);
 		}
 	}
-		
-	@Override
-	public void dispose () {
 
-	}
 }

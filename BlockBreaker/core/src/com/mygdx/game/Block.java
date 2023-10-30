@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -34,5 +33,5 @@ public class Block extends GameObject implements Collidable {
 
     @Override
     public void update() {
-    };
+    }
 }
