@@ -7,14 +7,24 @@ import com.badlogic.gdx.graphics.Color;
 
 public class Block extends GameObject implements Collidable {
     private boolean destroyed;
-    
-    public Block(int x, int y, int ancho, int alto, Color color) {
+    private int hitPoints;
+
+    public Block(int x, int y, int ancho, int alto, Color color, int hitPoints) {
         super(x,y,ancho,alto, color);
+        this.hitPoints = hitPoints;
         destroyed = false;
     }
     public void draw(ShapeRenderer shape){
     	shape.setColor(color);
         shape.rect(x, y, ancho, alto);
+    }
+
+    public void hit() {
+        hitPoints--;
+        setColor(Color.GOLD);
+        if (hitPoints <= 0) {
+            destroyed = true;
+        }
     }
 
     public boolean getDestroyed() {

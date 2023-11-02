@@ -25,6 +25,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private Paddle pad;
 	private final ArrayList<Block> blocks = new ArrayList<>();
 
+	private static final float chance_de_bloque_mejorado = 0.1f;
+
 
 	GameManager manager;
 
@@ -50,12 +52,14 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		int blockWidth = 70;
 		int blockHeight = 26;
 		int y = Gdx.graphics.getHeight();
+		Random random = new Random();
 
-		for (int cont = 0; cont<filas; cont++ ) {
-			y -= blockHeight+10;
+		for (int cont = 0; cont < filas; cont++ ) {
+			y -= blockHeight + 10;
 			for (int x = 5; x < Gdx.graphics.getWidth(); x += blockWidth + 10) {
-				Random r = new Random(x+y);
-				Block bloqueN = new Block(x, y, blockWidth, blockHeight, new Color(0.1f+r.nextFloat(1), r.nextFloat(1), r.nextFloat(1), 10));
+				int hitPoints = random.nextFloat() < chance_de_bloque_mejorado ? 2 : 1;
+				Color color = hitPoints == 2 ? Color.RED : new Color(0.1f + random.nextFloat(), random.nextFloat(), random.nextFloat(), 1);
+				Block bloqueN = new Block(x, y, blockWidth, blockHeight, color, hitPoints);
 				blocks.add(bloqueN);
 			}
 		}

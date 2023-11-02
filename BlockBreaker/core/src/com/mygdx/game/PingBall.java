@@ -50,13 +50,14 @@ public class PingBall extends GameObject{
 
 
 
-		public void checkCollisionBlock(Block b) {
-				if (b.collidesWith(this)) {
-					b.setDestroyed(true);
-					ySpeed = - ySpeed;
-				}
+	public void checkCollisionBlock(Block b) {
+		if (b.collidesWith(this) && !b.getDestroyed()) {
+			b.hit();
+			ySpeed = - ySpeed;
 		}
-		public void checkCollisionPad(Paddle pad) {
+	}
+
+	public void checkCollisionPad(Paddle pad) {
 			if(pad.collidesWith(this)) {
 				color = Color.GREEN;
 				ySpeed = -ySpeed;
