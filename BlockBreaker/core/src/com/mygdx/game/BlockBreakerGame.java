@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,6 +28,9 @@ public class BlockBreakerGame extends ApplicationAdapter {
 
 	private static final float chance_de_bloque_mejorado = 0.1f;
 
+	private PauseScreen pauseScreen;
+	private boolean isPaused;
+
 
 	GameManager manager;
 
@@ -39,12 +43,26 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		font.getData().setScale(3, 2);
 
 		manager = new GameManager();
-			
+
+
 		shape = new ShapeRenderer();
 		ball = new PingBall((float) Gdx.graphics.getWidth() /2-10, 41, 10, 5, 7, true, Color.WHITE);
 		pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10, Color.BLUE);
 		crearBloques();
+		pauseScreen = new PauseScreen();
+		isPaused = false;
+		Gdx.input.setInputProcessor(new InputAdapter() {
+			@Override
+			public boolean keyDown(int keycode) {
+				if (keycode == Input.Keys.ESCAPE) {
+					isPaused = !isPaused;
+				}
+				return true;
+			}
+		});
+
 	}
+
 
 	public void crearBloques() {
 		int filas = 2 + manager.getNivel();
@@ -78,41 +96,49 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		
 	@Override
 	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeRenderer.ShapeType.Filled);
-		pad.draw(shape);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		// monitorear inicio del juego
-		if (ball.estaQuieto()) {
-			ball.setXY(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11);
-			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
+
+		if (isPaused) {
+			pauseScreen.render(Gdx.graphics.getDeltaTime());
 		}else {
-			ball.update();
-		}
+			pad.draw(shape);
 
-		//verificar si se fue la bola x abajo
-		if (ball.getY()<0) {
-			manager.decrementarVida();
-			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true, Color.WHITE);
-		}
+			if (ball.estaQuieto()) {
+				ball.setXY(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11);
+				if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
+			}else {
+				ball.update();
+			}
 
-		if(manager.verificarGameOver()) {
-			crearBloques();
-		}
+			if (ball.getY() < 0) {
+				manager.decrementarVida();
+				ball = new PingBall(pad.getX() + pad.getAncho() / 2 - 5, pad.getY() + pad.getAlto() + 11, 10, 5, 7, true, Color.WHITE);
+			}
 
-		if(manager.verificarTerminoNivel(blocks)) {
-			manager.aumentarNivel();
-			crearBloques();
-			ball = new PingBall(pad.getX()+pad.getAncho()/2-5, pad.getY()+pad.getAlto()+11, 10, 5, 7, true, Color.WHITE);
-		}
+			if (manager.verificarGameOver()) {
+				crearBloques();
+			}
 
-		dibujarTodosLosBloques();
-		actualizarBloques();
-	        
-		ball.checkCollisionPad(pad);
-		ball.draw(shape);
-	        
+			if (manager.verificarTerminoNivel(blocks)) {
+				manager.aumentarNivel();
+				crearBloques();
+				ball = new PingBall(pad.getX() + pad.getAncho() / 2 - 5, pad.getY() + pad.getAlto() + 11, 10, 5, 7, true, Color.WHITE);
+			}
+
+			dibujarTodosLosBloques();
+			actualizarBloques();
+
+			ball.checkCollisionPad(pad);
+			ball.draw(shape);
+
+			dibujaTextos();
+
+		}
 		shape.end();
-		dibujaTextos();
+
 	}
 
 	public void actualizarBloques() {
