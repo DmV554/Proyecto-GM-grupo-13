@@ -1,5 +1,5 @@
 package com.mygdx.game;
 
 public interface Collidable {
-    boolean collidesWith(PingBall ball);
+    boolean collidesWith(Collidable x);
 }

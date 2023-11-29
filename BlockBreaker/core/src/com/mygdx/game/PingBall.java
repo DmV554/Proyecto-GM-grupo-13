@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.*;
 
-public class PingBall extends GameObject{
+public class PingBall extends GameObject implements Collidable{
 	    private int size;
 	    private int xSpeed;
 	    private int ySpeed;
@@ -48,22 +48,12 @@ public class PingBall extends GameObject{
 	        }
 	    }
 
-
-
-	public void checkCollisionBlock(Block b) {
-		if (b.collidesWith(this) && !b.getDestroyed()) {
-			b.hit();
-			ySpeed = - ySpeed;
-		}
+	public void cambiarDireccion() {
+		ySpeed = - ySpeed;
 	}
 
-	public void checkCollisionPad(Paddle pad) {
-			if(pad.collidesWith(this)) {
-				color = Color.GREEN;
-				ySpeed = -ySpeed;
-			}
-			else{
-				color = Color.WHITE;
-			}
+	@Override
+	public boolean collidesWith(Collidable x) {
+		return false;
 	}
 }

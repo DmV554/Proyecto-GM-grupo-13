@@ -35,10 +35,13 @@ public class Block extends GameObject implements Collidable {
         this.destroyed = destroyed;
     }
 
-    public boolean collidesWith(PingBall pp) {
-        boolean intersectaX = (x + ancho >= pp.getX()-pp.getSize()) && (x <= pp.getX()+pp.getSize());
-        boolean intersectaY = (y + alto >= pp.getY()-pp.getSize()) && (y <= pp.getY()+pp.getSize());
-        return intersectaX && intersectaY;
+    public boolean collidesWith(Collidable other) {
+        if (other instanceof PingBall) {
+            PingBall ball = (PingBall) other;
+            return (x + ancho >= ball.getX() - ball.getSize()) && (x <= ball.getX() + ball.getSize())
+                    && (y + alto >= ball.getY() - ball.getSize()) && (y <= ball.getY() + ball.getSize());
+        }
+        return false;
     }
 
     @Override

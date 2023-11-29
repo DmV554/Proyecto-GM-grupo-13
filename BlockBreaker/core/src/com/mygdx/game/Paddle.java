@@ -15,16 +15,19 @@ public class Paddle extends GameObject implements Collidable {
     	super(x,y,ancho,alto, color);
     }
 
+    public boolean collidesWith(Collidable other) {
+        if (other instanceof PingBall) {
+            PingBall ball = (PingBall) other;
 
+            boolean intersectaX = (x + ancho >= ball.getX() - ball.getSize()) && (x <= ball.getX() + ball.getSize());
+            boolean intersectaY = (y + alto >= ball.getY() - ball.getSize()) && (y <= ball.getY() + ball.getSize());
+            return intersectaX && intersectaY;
+        }
 
-    public boolean collidesWith(PingBall pp) {
-        boolean intersectaX = (x + ancho >= pp.getX()-pp.getSize()) && (x <= pp.getX()+pp.getSize());
-        boolean intersectaY = (y + alto >= pp.getY()-pp.getSize()) && (y <= pp.getY()+pp.getSize());
-        return intersectaX && intersectaY;
+        return false;
     }
 
-    public void draw(ShapeRenderer shape){
-        shape.setColor(color);
+    public void update() {
         float x2 = x; //= Gdx.input.getX();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x2 =x-15;
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x2=x+15;
@@ -32,11 +35,11 @@ public class Paddle extends GameObject implements Collidable {
         if (x2 > 0 && x2+ancho < Gdx.graphics.getWidth()) {
             x = x2;
         }
-        shape.rect(x, y, ancho, alto);
     }
 
-    public void update() {
+    @Override
+    public void draw(ShapeRenderer shape) {
 
     }
-    
+
 }
