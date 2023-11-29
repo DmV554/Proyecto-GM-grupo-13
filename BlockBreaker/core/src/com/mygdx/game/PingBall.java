@@ -3,7 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import java.util.*;
+import com.badlogic.gdx.math.Rectangle;
 
 public class PingBall extends GameObject implements Collidable{
 	    private int size;
@@ -35,18 +35,28 @@ public class PingBall extends GameObject implements Collidable{
 	        shape.circle(x, y, size);
 	    }
 
+	public Rectangle getBoundingRectangle() {
+		return new Rectangle(x - size / 2, y - size / 2, size, size);
+	}
+
 		@Override
-	    public void update() {
-	    	if (estaQuieto) return;
-	        x += xSpeed;
-	        y += ySpeed;
-	        if (x-size < 0 || x+size > Gdx.graphics.getWidth()) {
-	            xSpeed = -xSpeed;
-	        }
-	        if (y+size > Gdx.graphics.getHeight()) {
-	            ySpeed = -ySpeed;
-	        }
-	    }
+		public void update() {
+			if (estaQuieto) return;
+
+			float deltaTime = Gdx.graphics.getDeltaTime();
+
+			// Multiplica la velocidad por el tiempo delta
+			x += xSpeed * deltaTime;
+			y += ySpeed * deltaTime;
+
+			// Comprobaciones de límites y cambio de dirección si es necesario
+			if (x - size < 0 || x + size > Gdx.graphics.getWidth()) {
+				xSpeed = -xSpeed;
+			}
+			if (y + size > Gdx.graphics.getHeight()) {
+				cambiarDireccion();
+			}
+		}
 
 	public void cambiarDireccion() {
 		ySpeed = - ySpeed;

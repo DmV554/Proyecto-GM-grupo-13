@@ -1,9 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Block extends GameObject implements Collidable {
     private boolean destroyed;
@@ -25,6 +24,10 @@ public class Block extends GameObject implements Collidable {
         if (hitPoints <= 0) {
             destroyed = true;
         }
+    }
+
+    public Rectangle getBoundingRectangle() {
+        return new Rectangle(x, y, ancho, alto);
     }
 
     public boolean getDestroyed() {

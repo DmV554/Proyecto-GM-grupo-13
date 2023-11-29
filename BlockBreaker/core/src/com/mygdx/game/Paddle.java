@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Paddle extends GameObject implements Collidable {
-    /*private int x = 20;
-    private int y = 20;
-    private int width = 100;
-    private int height = 10;*/
     
     public Paddle(int x, int y, int ancho, int alto, Color color) {
     	super(x,y,ancho,alto, color);
@@ -35,6 +32,9 @@ public class Paddle extends GameObject implements Collidable {
         if (x2 > 0 && x2+ancho < Gdx.graphics.getWidth()) {
             x = x2;
         }
+    }
+    public Rectangle getBoundingRectangle() {
+        return new Rectangle(x, y, ancho, alto);
     }
 
     @Override

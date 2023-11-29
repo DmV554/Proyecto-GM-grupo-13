@@ -14,12 +14,15 @@ public class GameLogic {
     private ArrayList<Block> blocks = new ArrayList<>();
     private CollisionManager collisionManager;
     private GameManager stateManager;
-    private static final int vidas = 3;
     private static final int widthPaddle = 140;
     private static final int heightPaddle = 15;
     private static final int sizeBola = 12;
     private static final int widthBloque = 70;
     private static final int heightBloque = 26;
+    private static final int xSpeed = 200;
+    private static final int ySpeed = 200;
+
+
     private static final float chance_de_bloque_mejorado = 0.1f;
 
     public GameLogic() {
@@ -30,12 +33,9 @@ public class GameLogic {
     }
 
     private void initializeGame() {
-        ball = new PingBall((float) Gdx.graphics.getWidth() /2-10, 41, sizeBola, 5, 7, true, Color.WHITE); // Parámetros adecuados
+        ball = new PingBall((float) Gdx.graphics.getWidth() /2-10, 41, sizeBola, xSpeed, ySpeed, true, Color.WHITE); // Parámetros adecuados
         paddle = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10, Color.BLUE); // Parámetros adecuados
         createBlocks();
-
-        collisionManager.addCollidable(paddle);
-        collisionManager.addCollidable(ball);
     }
 
     private void createBlocks() {
@@ -51,7 +51,6 @@ public class GameLogic {
                 Color color = hitPoints == 2 ? Color.RED : new Color(0.1f + random.nextFloat(), random.nextFloat(), random.nextFloat(), 1);
                 Block bloqueN = new Block(x, y, widthBloque, heightBloque, color, hitPoints);
                 blocks.add(bloqueN);
-                collisionManager.addCollidable(bloqueN);
             }
         }
     }
@@ -61,7 +60,7 @@ public class GameLogic {
             ball.update();
             paddle.update();
             updateBlocks();
-            collisionManager.checkCollisions();
+            collisionManager.checkCollisions(ball, paddle, blocks);
             checkGameConditions();
         } else {
             createBlocks();
@@ -75,11 +74,9 @@ public class GameLogic {
             if (block.getDestroyed()) {
                 stateManager.aumentarPuntaje(1);
                 blocksToRemove.add(block);
-                collisionManager.removeCollidable(block);
             }
         }
 
-        // Elimina los bloques marcados para eliminación
         blocks.removeAll(blocksToRemove);
 
     }
@@ -95,16 +92,13 @@ public class GameLogic {
 
         if (ball.getY() < 0) {
             stateManager.decrementarVida();
-            ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, 7, 7, true, Color.WHITE);
-            collisionManager.addCollidable(ball);
+            ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, xSpeed, ySpeed, true, Color.WHITE);
         }
 
         if (stateManager.verificarTerminoNivel(blocks)) {
             stateManager.aumentarNivel();
             createBlocks();
-            ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, 7, 7, true, Color.WHITE);
-            collisionManager.addCollidable(ball);
-
+            ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, xSpeed, ySpeed, true, Color.WHITE);
         }
     }
 
