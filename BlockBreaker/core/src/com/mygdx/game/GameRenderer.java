@@ -55,6 +55,11 @@ public class GameRenderer {
             shapeRenderer.rect(block.getX(), block.getY(), block.getAncho(), block.getAlto());
         }
 
+        // Dibujar PowerUps (si es necesario)
+        for (FallingPowerUp powerUp : gameLogic.getFallingPowerUps()) {
+            shapeRenderer.setColor(powerUp.getColor());
+            shapeRenderer.circle(powerUp.getX(), powerUp.getY(), powerUp.getSize());
+        }
         shapeRenderer.end();
     }
 

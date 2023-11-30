@@ -66,4 +66,9 @@ public class PingBall extends GameObject implements Collidable{
 	public boolean collidesWith(Collidable x) {
 		return false;
 	}
+
+	public void increaseSpeed() {
+		x += (float) (xSpeed * 1.2);
+		y += (float) (ySpeed * 1.2);
+	}
 }

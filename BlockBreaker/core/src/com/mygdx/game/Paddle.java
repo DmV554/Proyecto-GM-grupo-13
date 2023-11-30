@@ -42,4 +42,7 @@ public class Paddle extends GameObject implements Collidable {
 
     }
 
+    public void increaseSize() {
+        ancho += 10;
+    }
 }
