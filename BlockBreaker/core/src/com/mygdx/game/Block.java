@@ -24,7 +24,9 @@ public class Block extends GameObject implements Collidable {
         setColor(Color.GOLD);
         if (hitPoints <= 0) {
             destroyed = true;
-            gameLogic.generatePowerUp(x, y);
+            if (Math.random() < 0.2){
+                gameLogic.generatePowerUp(x, y);
+            }
         }
     }
 

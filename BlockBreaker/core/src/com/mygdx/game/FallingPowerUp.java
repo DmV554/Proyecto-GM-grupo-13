@@ -15,7 +15,7 @@ public class FallingPowerUp extends GameObject {
     @Override
     public void update() {
         // Hacer que el power-up caiga hacia abajo
-        y -= 5; // Ejemplo: Mover 2 píxeles hacia abajo cada actualización
+        y -= 4; // Ejemplo: Mover 2 píxeles hacia abajo cada actualización
     }
 
     public void activatePowerUp(GameLogic gameLogic) {
