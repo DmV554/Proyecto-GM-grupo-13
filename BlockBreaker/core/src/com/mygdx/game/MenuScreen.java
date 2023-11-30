@@ -28,7 +28,6 @@ public class MenuScreen extends ScreenAdapter implements InputProcessor {
         return instance;
     }
 
-
     @Override
     public void render(float delta) {
         spriteBatch.begin();

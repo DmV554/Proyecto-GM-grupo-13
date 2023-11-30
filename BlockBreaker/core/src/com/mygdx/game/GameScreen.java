@@ -10,6 +10,7 @@ public class GameScreen extends ScreenAdapter {
         gameRenderer = new GameRenderer(gameLogic);
     }
 
+
     @Override
     public void render(float delta) {
         gameLogic.update();
