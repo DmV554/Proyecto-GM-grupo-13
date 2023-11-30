@@ -8,7 +8,7 @@ public class FallingPowerUp extends GameObject {
     private final PowerUp powerUp;
 
     public FallingPowerUp(float x, float y, PowerUp powerUp) {
-        super(x, y, 10, 10, Color.GREEN); // Ejemplo: Tamaño 10x10 y color verde
+        super(x, y, 10, 10, powerUp.getColor()); // Ejemplo: Tamaño 10x10 y color verde
         this.powerUp = powerUp;
     }
 
