@@ -59,6 +59,11 @@ public class MenuScreen extends ScreenAdapter implements InputProcessor {
     }
 
     @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null); // Desactiva el InputProcessor al salir del menú
+    }
+
+    @Override
     public boolean keyUp(int keycode) {
         return false;
     }
