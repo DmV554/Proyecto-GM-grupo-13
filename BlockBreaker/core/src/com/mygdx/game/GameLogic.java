@@ -22,18 +22,20 @@ public class GameLogic {
     private static final int xSpeed = 200;
     private static final int ySpeed = 200;
 
+    private final ArrayList<FallingPowerUp> fallingPowerUps = new ArrayList<>();
 
     private static final float chance_de_bloque_mejorado = 0.1f;
 
     public GameLogic() {
         //System.out.println(String.valueOf(screenHeight) + ", " + String.valueOf(screenWidth));
-        this.collisionManager = new CollisionManager();
         this.stateManager = new GameManager();
+        this.collisionManager = new CollisionManager(this);
         initializeGame();
     }
 
     private void initializeGame() {
         ball = new PingBall((float) Gdx.graphics.getWidth() /2-10, 41, sizeBola, xSpeed, ySpeed, true, Color.WHITE); // Parámetros adecuados
+
         paddle = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10, Color.BLUE); // Parámetros adecuados
         createBlocks();
     }
@@ -49,7 +51,7 @@ public class GameLogic {
             for (int x = 5; x < Gdx.graphics.getWidth(); x += widthBloque + 10) {
                 int hitPoints = random.nextFloat() < chance_de_bloque_mejorado ? 2 : 1;
                 Color color = hitPoints == 2 ? Color.RED : new Color(0.1f + random.nextFloat(), random.nextFloat(), random.nextFloat(), 1);
-                Block bloqueN = new Block(x, y, widthBloque, heightBloque, color, hitPoints);
+                Block bloqueN = new Block(x, y, widthBloque, heightBloque, color, hitPoints, this); // 'this' se refiere a GameLogic
                 blocks.add(bloqueN);
             }
         }
@@ -65,6 +67,10 @@ public class GameLogic {
         } else {
             createBlocks();
         }
+        for (FallingPowerUp powerUp : fallingPowerUps) {
+            powerUp.update();
+        }
+        collisionManager.checkPowerUpCollisions(paddle, fallingPowerUps);
     }
 
     private void updateBlocks() {
@@ -102,6 +108,13 @@ public class GameLogic {
         }
     }
 
+
+    public void generatePowerUp(float x, float y) {
+        PowerUp newPowerUp = Math.random() < 0.5 ? new ExtraLifePowerUp() : new ExpandPaddlePowerUp();
+        FallingPowerUp fallingPowerUp = new FallingPowerUp(x, y, newPowerUp);
+        fallingPowerUps.add(fallingPowerUp);
+    }
+
     public PingBall getBall() {
         return ball;
     }
@@ -117,5 +130,8 @@ public class GameLogic {
         return stateManager;
     }
 
+    public FallingPowerUp[] getFallingPowerUps() {
+        return fallingPowerUps.toArray(new FallingPowerUp[0]);
+    }
 }
 

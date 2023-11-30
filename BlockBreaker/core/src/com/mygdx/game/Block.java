@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Rectangle;
 public class Block extends GameObject implements Collidable {
     private boolean destroyed;
     private int hitPoints;
-
-    public Block(int x, int y, int ancho, int alto, Color color, int hitPoints) {
+    private GameLogic gameLogic;
+    public Block(int x, int y, int ancho, int alto, Color color, int hitPoints, GameLogic gameLogic) {
         super(x,y,ancho,alto, color);
         this.hitPoints = hitPoints;
+        this.gameLogic = gameLogic;
         destroyed = false;
     }
     public void draw(ShapeRenderer shape){
@@ -23,6 +24,7 @@ public class Block extends GameObject implements Collidable {
         setColor(Color.GOLD);
         if (hitPoints <= 0) {
             destroyed = true;
+            gameLogic.generatePowerUp(x, y);
         }
     }
 

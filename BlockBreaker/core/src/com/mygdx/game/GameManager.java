@@ -53,4 +53,8 @@ public class GameManager {
         }
         return false;
     }
+
+    public void incrementLife() {
+        vidas += 1;
+    }
 }
