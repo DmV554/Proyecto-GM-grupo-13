@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 public class GameScreen extends ScreenAdapter {
     private GameLogic gameLogic;
     private GameRenderer gameRenderer;
-
     public GameScreen() {
         gameLogic = new GameLogic();
         gameRenderer = new GameRenderer(gameLogic);

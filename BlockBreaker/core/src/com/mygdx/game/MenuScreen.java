@@ -19,7 +19,6 @@ public class MenuScreen extends ScreenAdapter implements InputProcessor {
         backgroundTexture = new Texture(Gdx.files.internal("d3e7b107-954a-4d37-9a68-f655f4c9de15.png"));
         stage = new Stage();
         Gdx.input.setInputProcessor(this);
-
     }
 
     public static MenuScreen getInstance() {

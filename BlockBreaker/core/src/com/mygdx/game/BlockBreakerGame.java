@@ -8,4 +8,5 @@ public class BlockBreakerGame extends Game {
     }
 
     // Otros métodos como render() y dispose() no necesitan modificarse
+
 }
