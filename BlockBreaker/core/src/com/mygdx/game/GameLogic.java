@@ -110,7 +110,16 @@ public class GameLogic {
 
 
     public void generatePowerUp(float x, float y) {
-        PowerUp newPowerUp = Math.random() < 0.5f ? new ExtraLifePowerUp() : new ExpandPaddlePowerUp();
+        Random rand = new Random();
+        float chance = rand.nextFloat();
+        PowerUp newPowerUp;
+        if (chance < 0.10f) {
+            newPowerUp = new ExtraLifePowerUp();
+        } else if (chance < 0.50f) {
+            newPowerUp = new ExpandPaddlePowerUp();
+        } else {
+            return;
+        }
         FallingPowerUp fallingPowerUp = new FallingPowerUp(x, y, newPowerUp);
         fallingPowerUps.add(fallingPowerUp);
     }

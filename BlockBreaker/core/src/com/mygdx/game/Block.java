@@ -21,10 +21,14 @@ public class Block extends GameObject implements Collidable {
 
     public void hit() {
         hitPoints--;
-        setColor(Color.GOLD);
+        if (hitPoints == 2) {
+            setColor(Color.RED);
+        } else if (hitPoints == 1) {
+            setColor(Color.ORANGE);
+        }
         if (hitPoints <= 0) {
             destroyed = true;
-            if (Math.random() < 0.2){
+            if (Math.random() < 0.4){
                 gameLogic.generatePowerUp(getX(), getY());
             }
         }
