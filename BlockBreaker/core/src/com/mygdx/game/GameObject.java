@@ -3,9 +3,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class GameObject {
-    protected float x, y; // Posición
-    protected float ancho, alto; // Dimensiones
-    protected Color color; // Color del objeto
+    private float x, y; // Posición
+    private float ancho, alto; // Dimensiones
+    private Color color; // Color del objeto
 
     // Constructor
     public GameObject(float x, float y, float ancho, float alto, Color color) {

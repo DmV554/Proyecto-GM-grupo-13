@@ -19,8 +19,8 @@ public class GameLogic {
     private static final int sizeBola = 12;
     private static final int widthBloque = 70;
     private static final int heightBloque = 26;
-    private static final int xSpeed = 200;
-    private static final int ySpeed = 200;
+    private static final int xSpeed = 290;
+    private static final int ySpeed = 290;
 
     private final ArrayList<FallingPowerUp> fallingPowerUps = new ArrayList<>();
 

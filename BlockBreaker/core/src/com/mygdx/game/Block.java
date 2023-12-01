@@ -15,8 +15,8 @@ public class Block extends GameObject implements Collidable {
         destroyed = false;
     }
     public void draw(ShapeRenderer shape){
-    	shape.setColor(color);
-        shape.rect(x, y, ancho, alto);
+    	shape.setColor(getColor());
+        shape.rect(getX(), getY(), getAncho(), getAlto());
     }
 
     public void hit() {
@@ -25,13 +25,13 @@ public class Block extends GameObject implements Collidable {
         if (hitPoints <= 0) {
             destroyed = true;
             if (Math.random() < 0.2){
-                gameLogic.generatePowerUp(x, y);
+                gameLogic.generatePowerUp(getX(), getY());
             }
         }
     }
 
     public Rectangle getBoundingRectangle() {
-        return new Rectangle(x, y, ancho, alto);
+        return new Rectangle(getX(), getY(), getAncho(), getAlto());
     }
 
     public boolean getDestroyed() {
@@ -45,8 +45,8 @@ public class Block extends GameObject implements Collidable {
     public boolean collidesWith(Collidable other) {
         if (other instanceof PingBall) {
             PingBall ball = (PingBall) other;
-            return (x + ancho >= ball.getX() - ball.getSize()) && (x <= ball.getX() + ball.getSize())
-                    && (y + alto >= ball.getY() - ball.getSize()) && (y <= ball.getY() + ball.getSize());
+            return (getX() + getAncho() >= ball.getX() - ball.getSize()) && (getX() <= ball.getX() + ball.getSize())
+                    && (getY() + getAlto() >= ball.getY() - ball.getSize()) && (getY() <= ball.getY() + ball.getSize());
         }
         return false;
     }

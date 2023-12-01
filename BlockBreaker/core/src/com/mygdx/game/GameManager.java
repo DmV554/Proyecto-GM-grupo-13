@@ -49,7 +49,10 @@ public class GameManager {
 
     public boolean verificarTerminoNivel(ArrayList<Block> blocks) {
         if(blocks.isEmpty()) {
+            this.puntaje = 0;
             return true;
+        } else if(vidas <= 0) {
+            this.puntaje = 0;
         }
         return false;
     }

@@ -15,7 +15,7 @@ public class FallingPowerUp extends GameObject {
     @Override
     public void update() {
         // Hacer que el power-up caiga hacia abajo
-        y -= 4; // Ejemplo: Mover 2 píxeles hacia abajo cada actualización
+        setY(getY()-4); ; // Ejemplo: Mover 2 píxeles hacia abajo cada actualización
     }
 
     public void activatePowerUp(GameLogic gameLogic) {
@@ -24,20 +24,20 @@ public class FallingPowerUp extends GameObject {
 
     @Override
     public void draw(ShapeRenderer shape) {
-        shape.setColor(color);
-        shape.rect(x, y, ancho, alto);
+        shape.setColor(getColor());
+        shape.rect(getX(), getY(), getAncho(), getAlto());
     }
 
     public void render(ShapeRenderer shape) {
-        shape.setColor(color);
-        shape.rect(x, y, ancho, alto);
+        shape.setColor(getColor());
+        shape.rect(getX(), getY(), getAncho(), getAlto());
     }
 
     public Rectangle getBoundingRectangle() {
-        return new Rectangle(x, y, ancho, alto);
+        return new Rectangle(getX(), getY(), getAncho(), getAlto());
     }
 
     public float getSize() {
-        return ancho;
+        return getAncho();
     }
 }

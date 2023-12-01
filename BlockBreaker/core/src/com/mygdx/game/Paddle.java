@@ -16,8 +16,8 @@ public class Paddle extends GameObject implements Collidable {
         if (other instanceof PingBall) {
             PingBall ball = (PingBall) other;
 
-            boolean intersectaX = (x + ancho >= ball.getX() - ball.getSize()) && (x <= ball.getX() + ball.getSize());
-            boolean intersectaY = (y + alto >= ball.getY() - ball.getSize()) && (y <= ball.getY() + ball.getSize());
+            boolean intersectaX = (getX() + getAncho() >= ball.getX() - ball.getSize()) && (getX() <= ball.getX() + ball.getSize());
+            boolean intersectaY = (getY() + getAlto() >= ball.getY() - ball.getSize()) && (getY() <= ball.getY() + ball.getSize());
             return intersectaX && intersectaY;
         }
 
@@ -25,16 +25,16 @@ public class Paddle extends GameObject implements Collidable {
     }
 
     public void update() {
-        float x2 = x; //= Gdx.input.getX();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x2 =x-15;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x2=x+15;
+        float x2 = getX(); //= Gdx.input.getX();
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x2 =getX()-15;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x2=getX()+15;
         // y = Gdx.graphics.getHeight() - Gdx.input.getY();
-        if (x2 > 0 && x2+ancho < Gdx.graphics.getWidth()) {
-            x = x2;
+        if (x2 > 0 && x2+getAncho() < Gdx.graphics.getWidth()) {
+            setX(x2);
         }
     }
     public Rectangle getBoundingRectangle() {
-        return new Rectangle(x, y, ancho, alto);
+        return new Rectangle(getX(), getY(), getAncho(), getAlto());
     }
 
     @Override
@@ -43,6 +43,6 @@ public class Paddle extends GameObject implements Collidable {
     }
 
     public void increaseSize() {
-        ancho += 10;
+        setAncho(getAncho() + 10);
     }
 }
