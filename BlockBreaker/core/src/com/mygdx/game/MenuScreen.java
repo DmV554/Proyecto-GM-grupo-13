@@ -46,7 +46,7 @@ public class MenuScreen extends ScreenAdapter implements InputProcessor {
 
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ENTER) {
-            ((BlockBreakerGame) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            ((BlockBreakerGame) Gdx.app.getApplicationListener()).startGame(); // Cambia a GameScreen
             return true;
         }
         return false;
