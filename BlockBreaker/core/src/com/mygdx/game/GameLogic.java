@@ -97,8 +97,7 @@ public class GameLogic {
         }
 
         if (ball.getY() < 0) {
-            stateManager.decrementarVida();
-            ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, xSpeed, ySpeed, true, Color.WHITE);
+            handleBallLost();
         }
 
         if (stateManager.verificarTerminoNivel(blocks)) {
@@ -109,6 +108,14 @@ public class GameLogic {
     }
 
 
+    private void handleBallLost() {
+        stateManager.decrementarVida();
+        ball = new PingBall(paddle.getX() + paddle.getAncho() / 2 - 5, paddle.getY() + paddle.getAlto() + 11, sizeBola, xSpeed, ySpeed, true, Color.WHITE);
+        for (FallingPowerUp powerUp : fallingPowerUps) {
+            powerUp.getPowerUp().deactivate(this);
+        }
+        fallingPowerUps.clear();
+    }
     public void generatePowerUp(float x, float y) {
         Random rand = new Random();
         float chance = rand.nextFloat();

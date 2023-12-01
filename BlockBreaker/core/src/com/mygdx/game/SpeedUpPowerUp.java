@@ -11,4 +11,9 @@ public class SpeedUpPowerUp implements PowerUp {
     public Color getColor() {
         return color;
     }
+
+    @Override
+    public void deactivate(GameLogic gameLogic) {
+
+    }
 }

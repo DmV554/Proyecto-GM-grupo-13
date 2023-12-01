@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 
 public class FallingPowerUp extends GameObject {
@@ -22,6 +23,7 @@ public class FallingPowerUp extends GameObject {
         powerUp.activate(gameLogic);
     }
 
+
     @Override
     public void draw(ShapeRenderer shape) {
         shape.setColor(getColor());
@@ -39,5 +41,9 @@ public class FallingPowerUp extends GameObject {
 
     public float getSize() {
         return getAncho();
+    }
+
+    public PowerUp getPowerUp() {
+        return powerUp;
     }
 }

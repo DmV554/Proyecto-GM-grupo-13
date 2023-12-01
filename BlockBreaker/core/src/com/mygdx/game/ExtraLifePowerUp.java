@@ -13,4 +13,9 @@ public class ExtraLifePowerUp implements PowerUp {
     public Color getColor() {
         return color;
     }
+
+    @Override
+    public void deactivate(GameLogic gameLogic) {
+
+    }
 }
