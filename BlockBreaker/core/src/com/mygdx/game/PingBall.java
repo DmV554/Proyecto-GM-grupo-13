@@ -36,7 +36,7 @@ public class PingBall extends GameObject implements Collidable{
 	}
 
 	public Rectangle getBoundingRectangle() {
-		return new Rectangle(getX() - size / 2, getY() - size / 2, size, size);
+		return new Rectangle(getX() - (float) size / 2, getY() - (float) size / 2, size, size);
 	}
 
 	@Override
@@ -67,8 +67,13 @@ public class PingBall extends GameObject implements Collidable{
 		return false;
 	}
 
-	public void increaseSpeed() {
-		setX(getX()+ (float) (xSpeed * 1.2));
-		setY(getY() + (float) (ySpeed * 1.2));
+	public void increaseSpeed(float factor) {
+		xSpeed *= factor;
+		ySpeed *= factor;
+	}
+
+	public void decreaseSpeed(float factor){
+		xSpeed /= factor;
+		ySpeed /= factor;
 	}
 }

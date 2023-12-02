@@ -31,6 +31,11 @@ public class BlockBreakerGame extends Game {
         setScreen(gameScreen);
     }
 
+    public void showGameOver() {
+        setScreen(GameOverScreen.getInstance(this));
+    }
+
+
     public void quitGame() {
         Gdx.app.exit();
     }

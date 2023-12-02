@@ -92,7 +92,7 @@ public class PauseScreen implements Screen {
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            ((BlockBreakerGame) Gdx.app.getApplicationListener()).resumeGame();
+            game.resumeGame();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             game.restartLevel();
@@ -126,23 +126,17 @@ public class PauseScreen implements Screen {
     @Override
     public void resume() {
         Gdx.input.setInputProcessor(stage);
-
-
     }
 
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(stage);
-        Gdx.app.log("PauseScreen", "hide");
-
     }
 
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(stage);
-        Gdx.app.log("PauseScreen", "dispose");
         batch.dispose();
         font.dispose();
-
     }
 }

@@ -10,7 +10,7 @@ public class GameManager {
     private int vidas;
     private int puntaje;
     private int nivel;
-
+    private final BlockBreakerGame game = (BlockBreakerGame) Gdx.app.getApplicationListener();
     public GameManager() {
         this.vidas = 3;
         this.puntaje = 0;
@@ -32,8 +32,7 @@ public class GameManager {
     public int getNivel() {return this.nivel; }
     public boolean verificarGameOver() {
         if (vidas<=0) {
-            vidas = 3;
-            nivel = 1;
+            game.showGameOver();
             return true;
         }
         return false;

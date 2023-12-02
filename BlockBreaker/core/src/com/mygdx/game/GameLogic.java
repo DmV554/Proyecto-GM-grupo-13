@@ -120,12 +120,14 @@ public class GameLogic {
         Random rand = new Random();
         float chance = rand.nextFloat();
         PowerUp newPowerUp;
-        if (chance < 0.10f) {
-            newPowerUp = new ExtraLifePowerUp();
-        } else if (chance < 0.50f) {
+        if (chance < 0.20f) {
+            newPowerUp = new SlowDownPowerUp();
+        } else if (chance < 0.40f) {
+            newPowerUp = new SpeedUpPowerUp();
+        } else if (chance < 0.60f) {
             newPowerUp = new ExpandPaddlePowerUp();
         } else {
-            return;
+            newPowerUp = new ExtraLifePowerUp();
         }
         FallingPowerUp fallingPowerUp = new FallingPowerUp(x, y, newPowerUp);
         fallingPowerUps.add(fallingPowerUp);
