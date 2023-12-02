@@ -8,12 +8,10 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Paddle extends GameObject implements Collidable {
     private final float originalWidth;
-    private final float expandedWidth;
     
     public Paddle(int x, int y, int ancho, int alto, Color color) {
     	super(x,y,ancho,alto, color);
         this.originalWidth = ancho;
-        this.expandedWidth = ancho * 1.5f;
     }
 
     public boolean collidesWith(Collidable other) {
@@ -47,7 +45,7 @@ public class Paddle extends GameObject implements Collidable {
     }
 
     public void increaseSize() {
-        setAncho(expandedWidth);
+        setAncho(getAncho() + 10);
     }
 
     public void decreaseSize() {

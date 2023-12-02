@@ -18,7 +18,7 @@ public class BlockBreakerGame extends Game {
     }
 
     public void pauseGame() {
-        setScreen(new PauseScreen(this));
+        setScreen(PauseScreen.getInstance(this));
     }
 
 

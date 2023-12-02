@@ -32,7 +32,7 @@ public class PauseScreen implements Screen {
         restartButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((BlockBreakerGame) Gdx.app.getApplicationListener()).restartLevel();
+                game.restartLevel();
             }
         });
 
@@ -46,13 +46,13 @@ public class PauseScreen implements Screen {
             }
         });
 
-        TextButton quitButton = new TextButton("Quit", skin);
+        TextButton quitButton = new TextButton("Quit Game", skin);
         quitButton.setPosition(500, 100); // Ajusta la posición
         quitButton.setSize(200, 50);
         quitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((BlockBreakerGame) Gdx.app.getApplicationListener()).quitGame();
+                game.quitGame();
             }
         });
 
@@ -60,6 +60,10 @@ public class PauseScreen implements Screen {
         stage.addActor(restartButton);
         stage.addActor(quitButton);
 
+    }
+
+    public static Screen getInstance(BlockBreakerGame blockBreakerGame) {
+        return new PauseScreen(blockBreakerGame);
     }
 
 
@@ -112,15 +116,11 @@ public class PauseScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         Gdx.input.setInputProcessor(stage);
-        Gdx.app.log("PauseScreen", "resize");
-
     }
 
     @Override
     public void pause() {
         Gdx.input.setInputProcessor(stage);
-        Gdx.app.log("PauseScreen", "pause");
-
     }
 
     @Override
